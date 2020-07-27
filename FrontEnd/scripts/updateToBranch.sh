@@ -1,14 +1,18 @@
+#pulls the branch named in the first parameter
+
 cd /home/remote/app
 
 #Navigate to scripts directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-#If a different branch is requested to the currently loaded branch
-if [`cat $DIR/currentBranch.local` != $1];
-then
-  git pull $1 remote
-  echo $1 > ./currentBranch.local
+git pull $1 remote
+echo $1 > $DIR/currentBranch.local
 
+if [$1 != "stable"];
+then
   #Grant 30 minutes before reverting to stable
-  echo $((`date +%s`+1800)) > requestedExpiry.local
+  echo $((`date +%s`+1800)) > $DIR/requestExpiry.local
+else
+  #wait for an hour before checking for a new stable branch
+  echo $((`date +%s`+3600)) > $DIR/requestExpiry.local  
 fi

@@ -1,3 +1,5 @@
+#Restarts Node.js with then newest version of the current branch 
+
 #Kills current server pages
 #Updates to most recent requested branch
 #Starts serving that branch
