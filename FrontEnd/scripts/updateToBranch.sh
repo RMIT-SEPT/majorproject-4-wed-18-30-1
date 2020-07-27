@@ -5,7 +5,7 @@ cd /home/remote/app
 #Navigate to scripts directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-git pull $1 remote
+git pull remote $1
 echo $1 > $DIR/currentBranch.local
 
 if [$1 != "stable"];
