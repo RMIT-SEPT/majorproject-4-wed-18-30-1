@@ -4,7 +4,7 @@
 
 ## Members
 * SURNAME, GivenName (sXXXX)
-* SURNAME, GivenName (sXXXX)
+* DOMINIQUE, Daniel (s3745409)
 * Magnusson, Luke (s3784876)
 * Perez, Rafael (s3769737)
 * SURNAME, GivenName (sXXXX)
@@ -12,7 +12,7 @@
 ## Records
 
 * Github repository : https://github.com/RMIT-SEPT/MajorProject/Groupx
-* ClickUp Workspace : https://app.clickup.com/6915682/v/l/4-6938252-1
+* Notion Workspace : https://www.notion.so/5f5f2199590e4343a1e73485097d8391?v=a324535af8974e87b62c2a3dd2d45d77
 
 
 ## Code documentation
