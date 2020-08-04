@@ -1,6 +1,3 @@
-CREATE DATABASE [software_eng];
-USE [software_eng];
-
 CREATE TABLE users (
  --Increments by one, not secure for logins
  privateID INT IDENTITY(1,1) PRIMARY KEY,
@@ -9,7 +6,7 @@ CREATE TABLE users (
  --Full name of user, e.g. John Smith.
  fullName VARCHAR(64),
  --Email address provided by user.
- email VARCHAR(64),
+ email VARCHAR(128),
  --Account type: Buissness owner, employee, or customer. Exists in range [0,255] for forward compadability
  accountType TINYINT
 );
@@ -28,7 +25,7 @@ CREATE TABLE postcodes (
   postcode INT,
   --Accounting for Mamungkukumpurangkuntjunya Hill (31 characters long)
   subsurbName VARCHAR(32),
-  --NSW, NT, QLD, TAS, WA
+  --ACT, NSW, NT, QLD, TAS, VIC, WA
   stateAbreviation VARCHAR(3)
 );
 
