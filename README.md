@@ -7,7 +7,7 @@
 * DOMINIQUE, Daniel (s3745409)
 * Magnusson, Luke (s3784876)
 * Perez, Rafael (s3769737)
-* Shiou-PingE, Chu (s3734303)
+* Shiou-Ping, Chu (s3734303)
 
 ## Records
 
