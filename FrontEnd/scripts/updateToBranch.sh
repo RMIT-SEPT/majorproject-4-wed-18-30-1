@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 git pull origin $1
 echo $1 > $DIR/currentBranch.local
 
-if [$1 != "stable"];
+if ["$1" != "stable"];
 then
   #Grant 30 minutes before reverting to stable
   echo $((`date +%s`+1800)) > $DIR/requestExpiry.local

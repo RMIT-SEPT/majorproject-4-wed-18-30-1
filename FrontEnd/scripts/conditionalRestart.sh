@@ -8,6 +8,8 @@ requestedVersion=`./checkBranch.sh`
 #if a different version has been requested to what is currently installed
 if [$requestedVersion != `cat currentBranch.local`];
 then
-  #restart the node.js process & repull from git
+  echo "Changing branch"
+
+  #restart the node.js process & re-pull from git
   ./restart.sh
 fi
