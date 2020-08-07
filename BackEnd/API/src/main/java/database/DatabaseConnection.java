@@ -1,4 +1,4 @@
-package src.main.java.database;
+package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,9 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import src.main.java.users.Business;
-import src.main.java.users.Customer;
-import src.main.java.users.Employee;
+import users.Business;
+import users.Customer;
+import users.Employee;
+import time.Interval;
 
 /**
 * Houses static procedures for executing stored procedures on the soft-eng-sql server
@@ -232,7 +233,7 @@ public class DatabaseConnection {
     }
     
     public static ResultSet createBusiness(Business b) throws ClassNotFoundException, SQLException {
-      String openingHours = time.Interval.toString(b.getOpeningHours());
+      String openingHours = Interval.toString(b.getOpeningHours());
       return createEmployee(b.getEmail(), b.getPasswordHash(), b.getName(), openingHours);
     }
 

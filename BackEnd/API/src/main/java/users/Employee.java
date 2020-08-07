@@ -1,4 +1,4 @@
-package src.main.java.users;
+package users;
 
 public class Employee extends User{
   //#region Variables

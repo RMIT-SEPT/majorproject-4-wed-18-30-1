@@ -1,6 +1,6 @@
-package src.main.java.users;
+package users;
 
-import src.main.java.time.Interval;
+import time.Interval;
 
 public class Business extends User{
   //#region Variables

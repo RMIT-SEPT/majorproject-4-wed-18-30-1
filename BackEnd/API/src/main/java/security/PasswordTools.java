@@ -1,4 +1,4 @@
-package src.main.java.security;
+package security;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

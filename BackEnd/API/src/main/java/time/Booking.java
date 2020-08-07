@@ -1,4 +1,4 @@
-package src.main.java.time;
+package time;
 
 public class Booking {
   

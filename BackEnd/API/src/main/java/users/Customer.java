@@ -1,4 +1,4 @@
-package src.main.java.users;
+package users;
 
 public class Customer extends User{
 

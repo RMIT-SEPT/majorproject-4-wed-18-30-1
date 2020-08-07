@@ -1,7 +1,7 @@
-package src.main.java.users;
+package users;
 
-import src.main.java.security.PasswordTools;
-import src.main.java.time.Booking;
+import security.PasswordTools;
+import time.Booking;
 
 public abstract class User {
   //#region Variables

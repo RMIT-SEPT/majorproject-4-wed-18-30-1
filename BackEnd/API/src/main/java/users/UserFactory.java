@@ -1,14 +1,14 @@
-package src.main.java.users;
+package users;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.database.DatabaseConnection;
-import src.main.java.exceptions.PasswordTooWeakException;
-import src.main.java.security.PasswordTools;
-import src.main.java.time.Interval;
+import database.DatabaseConnection;
+import exceptions.PasswordTooWeakException;
+import security.PasswordTools;
+import time.Interval;
 
 public class UserFactory {
   

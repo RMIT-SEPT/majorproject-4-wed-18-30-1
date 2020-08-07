@@ -1,4 +1,4 @@
-package src.main.java.time;
+package time;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

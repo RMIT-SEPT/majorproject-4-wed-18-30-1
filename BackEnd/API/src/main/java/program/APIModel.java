@@ -1,4 +1,4 @@
-package src.main.java.program;
+package program;
 
 public class APIModel implements Runnable {
   //#region variables
@@ -40,31 +40,36 @@ public class APIModel implements Runnable {
       String request = getRequest();
     }
   }
-
+  
   //#region private tasks
   private String getRequest()
   {
-    throw new NotImplementedException();
+    //TODO method stub
+    return "";
   }
   
   private boolean createUser(String request)
   {
-    throw new NotImplementedException();
+    //TODO method stub
+    return false;
   }
-
-  private String modifyUser(String request)
+  
+  private boolean modifyUser(String request)
   {
-    throw new NotImplementedException();
+    //TODO method stub
+    return false;
   }
   
   private boolean reloadUsers(String request)
   {
-    throw new NotImplementedException(); 
+    //TODO method stub
+    return false; 
   }
   
-  private String reloadBookings(String request)
+  private boolean reloadBookings(String request)
   {
-    throw new NotImplementedException();
+    //TODO method stub
+    return false;
   }
   //#endregion
   //#endregion
