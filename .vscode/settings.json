@@ -14,6 +14,7 @@
     "VARBINARY",
     "VARCHAR",
     "alog",
+    "endregion",
     "nohup",
     "passwd"
   ]

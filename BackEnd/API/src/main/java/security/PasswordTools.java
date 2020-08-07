@@ -1,4 +1,4 @@
-package security;
+package src.main.java.security;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -15,7 +15,7 @@ public class PasswordTools {
  * @return <b>String:</b> SHA-512 digest of the password string 
  * @author Luke Magnusson
  * @version 1.0
- * @since 2020-07-06
+ * @since 2020-08-06
  *
  * @see MessageDigest
  */
@@ -62,7 +62,7 @@ public class PasswordTools {
  * @param password string to be matched against the criteria for a strong password
  * @return <b>boolean:</b> True if the password fits the criteria.
  * @author Luke Magnusson
- * @since 2020-07-06
+ * @since 2020-08-06
  * @version 1.0
  */
   public static boolean passwordMeetsRequirements(String password)

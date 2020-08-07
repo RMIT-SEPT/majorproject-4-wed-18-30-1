@@ -61,3 +61,16 @@ CREATE TABLE bookings (
   --Notes made by employee or customer regarding their appointment e.g. "Bring documents x, y, and z"
   notes VARCHAR(255)
 );
+
+CREATE TABLE accessibleTimes(
+  --KEY
+  availabilityID INT IDENTITY(1,1) PRIMARY KEY,
+  --Employee or business private ID
+  targetID INT,
+  --Day of week the accessableTime applies to
+  dayOfWeek TINYINT,
+  --Start Time e.g. 9 am
+  startTime DATE,
+  --end Time
+  endTime DATE
+);
