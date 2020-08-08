@@ -1,12 +1,16 @@
 package program;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
 *  Listens for requests made to the application port, then creates a thread to handle the request
 * @author Luke Magnusson
 * @since 2020-08-08
 * @version 1.0
 */
-public class RequestReader implements Runnable {
+@RestController
+public class APIController {
   
   //#region fields
   //#region Private Fields
@@ -21,35 +25,10 @@ public class RequestReader implements Runnable {
   //#endregion
   
   //#region Controls
-  
-  /**
-  * Listens for requests made to the application port, then creates a thread to handle the request
-  * @author Luke Magnusson
-  * @since 2020-08-08
-  * @version 1.0
-  */
-  @Override
-  public void run() {
-    shouldRun = true;
-    while (shouldRun) {
-      //Listen for the next request
-      String json = getRequest();
-      
-      //Create thread to handle the request
-      APIModel model = new APIModel(json);
-      model.run();
-    }
-  }
-  
-  /**
-  * Gracefully exits the main thread at the end of its current iteration.
-  * @author Luke Magnusson
-  * @since 2020-08-08
-  * @version 1.0
-  */
-  public void stop(){
-    this.shouldRun = false;
-  }
+  @RequestMapping("/")
+	public String index() {
+		return "Spring Boot says \"Hello world!\"";
+	}
   //#endregion
   //#region Private methods
   

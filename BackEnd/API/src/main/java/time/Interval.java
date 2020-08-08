@@ -2,20 +2,7 @@ package time;
 
 import java.util.Date;
 
-public class Interval {
-  //#region Static methods
-  public static String toString(Interval[] intervals)
-  {
-    StringBuilder sb = new StringBuilder(intervals[0].toString());
-    
-    for (int i = 1; i < intervals.length; i++) {
-      sb.append(", " + intervals[i].toString());
-    }
-    
-    return sb.toString();
-  }
-  //#endregion
-  
+public class Interval {  
   //#region Variables
   /**
   * Represents the start of the interval

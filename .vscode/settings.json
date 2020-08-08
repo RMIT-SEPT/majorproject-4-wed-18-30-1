@@ -17,6 +17,8 @@
     "endregion",
     "nohup",
     "passwd",
-    "softengapi"
-  ]
+    "softengapi",
+    "springframework"
+  ],
+  "java.configuration.updateBuildConfiguration": "automatic"
 }

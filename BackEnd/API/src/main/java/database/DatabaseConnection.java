@@ -9,6 +9,7 @@ import java.sql.Statement;
 import users.Business;
 import users.Customer;
 import users.Employee;
+import utility.ArrayUtils;
 import time.Interval;
 
 /**
@@ -233,7 +234,11 @@ public class DatabaseConnection {
     }
     
     public static ResultSet createBusiness(Business b) throws ClassNotFoundException, SQLException {
-      String openingHours = Interval.toString(b.getOpeningHours());
+      ArrayUtils<Interval> au = new ArrayUtils<>();
+      
+      String openingHours = '\'' 
+                          + au.toString(b.getOpeningHours(), "\', \'") 
+                          + '\'';
       return createEmployee(b.getEmail(), b.getPasswordHash(), b.getName(), openingHours);
     }
 
