@@ -1,5 +1,7 @@
 package program;
 
+import exceptions.UnknownRequest;
+
 public class APIModel implements Runnable {
   //#region variables
   //#region Public
@@ -19,15 +21,17 @@ public class APIModel implements Runnable {
   * @since 2020-08-07
   * @version 1.0
   */
-  private boolean run = true;
-  
+  private String jsonRequest = "";
+  private enum requestReason {unknownReason, createUser, modifyUser, reloadUsers, reloadBookings}
   //#endregion
   
   //#region Constructors
   
-  public APIModel()
+  
+  
+  public APIModel(String requestJson)
   {
-    
+    jsonRequest = requestJson;   
   }
   //#endregion
   
@@ -35,17 +39,33 @@ public class APIModel implements Runnable {
   //#region Tasks
   @Override
   public void run() {
-    while (run)
-    {
-      String request = getRequest();
+    switch (getReason()) {
+      case createUser:
+      createUser(jsonRequest);
+      break;
+      
+      case modifyUser:
+      modifyUser(jsonRequest);
+      break;
+      
+      case reloadUsers:
+      reloadUsers(jsonRequest);
+      break;
+      
+      case reloadBookings:
+      reloadBookings(jsonRequest);
+      break;
+      
+      default:
+      throw new UnknownRequest(jsonRequest);
     }
   }
   
   //#region private tasks
-  private String getRequest()
+  private requestReason getReason()
   {
     //TODO method stub
-    return "";
+    return requestReason.unknownReason;
   }
   
   private boolean createUser(String request)
@@ -72,16 +92,5 @@ public class APIModel implements Runnable {
     return false;
   }
   //#endregion
-  //#endregion
-  
-  //#region Controls
-  public void stop()
-  {
-    run = false;
-    
-  }
-  
-  //#endregion
-  
-  
+  //#endregion  
 }
