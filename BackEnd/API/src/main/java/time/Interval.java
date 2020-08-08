@@ -1,12 +1,6 @@
 package time;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 
 public class Interval {
   //#region Static methods
@@ -26,18 +20,20 @@ public class Interval {
   /**
   * Represents the start of the interval
   * @author Luke Magnusson
-  * @version 1.0
+  * @version 1.1
   * @since 2020-08-06
+  * @hidden Switched to {@link Event} as of 2020-08-08
   */
-  final Instant startDate;
+  final Event startDate;
   
   /**
   * Represents the end of the interval
   * @author Luke Magnusson
-  * @version 1.0
+  * @version 1.1
   * @since 2020-08-06
+  * @hidden Switched to {@link Event} as of 2020-08-08
   */
-  final Instant endDate;
+  final Event endDate;
   
   //#endregion
   
@@ -48,7 +44,7 @@ public class Interval {
   * @param startDate
   * @param endDate
   */
-  public Interval(Instant startDate, Instant endDate) {
+  public Interval(Event startDate, Event endDate) {
     this.startDate = startDate;
     this.endDate = endDate;
   }
@@ -57,34 +53,23 @@ public class Interval {
   //#region Functions
   
   /**
-   * Soon to be deprecated as it does not play well with bookings
+  * Soon to be deprecated as it does not play well with bookings
   * @author Luke Magnusson
   * @version 1.0
   * @since 2020-08-07
-  * @param startTime string representation of a date in the format [day-of-week (numeric)] [hour]:[minute]
-  * @param endTime string representation of a date in the format [day-of-week (numeric)] [hour]:[minute]
+  * @param startTime string representation of an event
+  * @param endTime string representation of an event
+  * @see Event#toString()
   */
   public Interval(String startTime, String endTime) {
-    DateTimeFormatter f = 
-    DateTimeFormatter.ofPattern( "e hh:mm" , Locale.UK )
-                     .withZone(ZoneId.systemDefault());
-    
-    LocalDateTime ldt = LocalDateTime.parse( startTime , f );
-    this.startDate = ldt.atZone(ZoneId.systemDefault()).toInstant();
-    
-    
-    ldt = LocalDateTime.parse(endTime , f);
-    this.endDate = ldt.atZone(ZoneId.systemDefault()).toInstant();
-    
+    startDate = new Event(startTime);
+    endDate = new Event(endTime);
   }
   
   //#region Overrides
   @Override
   public String toString() {
-    DateTimeFormatter f =
-    DateTimeFormatter.ofPattern("e hh:mm" , Locale.UK)
-                     .withZone(ZoneId.systemDefault());
-    return f.format(startDate) + ", " + f.format(endDate);
+    return '\'' + startDate.toString() + "\', \'" + endDate.toString() + '\'';
   }
   //#endregion
   
@@ -109,12 +94,12 @@ public class Interval {
   * @param end the date that represents the other extreme of the timespan you are checking against
   * @return Returns true if the interval starts or ends inside this interval
   * @author Luke Magnusson
-  * @version 1.0
+  * @version 1.1
   * @since 2020-08-06
   * @see java.util.Date#before(Date)
   * @see java.util.Date#after(Date)
   */
-  public boolean intersects(Instant start, Instant end)
+  public boolean intersects(Event start, Event end)
   {
     return intersects(start) || intersects(end);
   }
@@ -128,7 +113,7 @@ public class Interval {
   * @see java.util.Date#before(Date)
   * @see java.util.Date#after(Date)
   */
-  public boolean intersects(Instant time)
+  public boolean intersects(Event time)
   {
     return time.isAfter(startDate) && time.isBefore(endDate);
   }
@@ -139,7 +124,7 @@ public class Interval {
   * @version 1.0
   * @since 2020-08-06
   */
-  public Instant getStart()
+  public Event getStart()
   {
     return startDate;
   }
@@ -150,15 +135,9 @@ public class Interval {
   * @version 1.0
   * @since 2020-08-06
   */
-  public Instant getEnd()
+  public Event getEnd()
   {
     return endDate;
-  }
-  
-  private String toString(Instant i)
-  {
-    return String.valueOf(i.atZone(ZoneOffset.UTC).getHour()) 
-    + ':' + i.atZone(ZoneOffset.UTC).getMinute();
   }
   //#endregion
   //#endregion
