@@ -1,4 +1,4 @@
-package time;
+package model.time;
 
 public class Event {
   //Epoch is 00:00:00 January first 2020

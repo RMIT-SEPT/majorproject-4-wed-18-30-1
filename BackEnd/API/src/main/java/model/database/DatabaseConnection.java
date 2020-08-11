@@ -1,4 +1,4 @@
-package database;
+package model.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import users.Business;
-import users.Customer;
-import users.Employee;
-import utility.ArrayUtils;
-import time.Interval;
+import model.time.Interval;
+import model.users.Business;
+import model.users.Customer;
+import model.users.Employee;
+import model.utility.ArrayUtils;
 
 /**
 * Houses static procedures for executing stored procedures on the soft-eng-sql server
@@ -184,7 +184,9 @@ public class DatabaseConnection {
       } catch (ClassNotFoundException e) {
         e.printStackTrace();
         classErr = e;
+
       } finally{
+        
         //Free result resources
         if (rs != null)
         {

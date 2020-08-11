@@ -1,7 +1,7 @@
-package users;
+package model.users;
 
-import security.PasswordTools;
-import time.Booking;
+import model.security.PasswordTools;
+import model.time.Booking;
 
 public abstract class User {
   //#region Variables

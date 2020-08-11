@@ -1,14 +1,14 @@
-package users;
+package model.users;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.DatabaseConnection;
+import model.database.DatabaseConnection;
 import exceptions.PasswordTooWeakException;
-import security.PasswordTools;
-import time.Interval;
+import model.security.PasswordTools;
+import model.time.Interval;
 
 public class UserFactory {
   

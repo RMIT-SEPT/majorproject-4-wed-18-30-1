@@ -1,4 +1,4 @@
-package program;
+package model;
 
 import exceptions.UnknownRequest;
 

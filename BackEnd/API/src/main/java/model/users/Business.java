@@ -1,6 +1,6 @@
-package users;
+package model.users;
 
-import time.Interval;
+import model.time.Interval;
 
 public class Business extends User{
   //#region Variables

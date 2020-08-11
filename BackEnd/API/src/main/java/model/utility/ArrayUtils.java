@@ -1,4 +1,4 @@
-package utility;
+package model.utility;
 
 import exceptions.NoAvailableDelimiterException;
 
