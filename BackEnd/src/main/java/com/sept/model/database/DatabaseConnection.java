@@ -10,7 +10,6 @@ import com.sept.model.time.Interval;
 import com.sept.model.users.Business;
 import com.sept.model.users.Customer;
 import com.sept.model.users.Employee;
-import com.sept.model.utility.ArrayUtils;
 
 /**
 * Houses static procedures for executing stored procedures on the soft-eng-sql server
@@ -19,6 +18,8 @@ import com.sept.model.utility.ArrayUtils;
 * @since 2020-08-06
 */
 public class DatabaseConnection {
+  
+  //#region Connection Functions
   
   /**
   * Creates a connection to the SQL server with which to send SQL statements
@@ -46,115 +47,6 @@ public class DatabaseConnection {
       //TODO change sign in to one with less permissions.
       Connection con = DriverManager.getConnection(connectionURL, "root", "d2f57a8a974b218fb1e6cfa9457636d4");
       return con;
-    }
-    
-    /**
-    * @param email Email address of the user, must be unique
-    * @param passwordHash SHA-512 Hash of their password
-    * @param name Name of the user e.g. Jane Doe, may be empty
-    * @return {@code publicID} of the user generated with this method
-    * @author Luke Magnusson
-    * @version 1.0
-    * @throws SQLException When the SQL code is errant, or the entry already exists with that private key
-    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
-    * @since 2020-08-06
-    * @see java.sql.Connection
-    * @see security.PasswordTools#hashPassword(String)
-    */
-    public static ResultSet createCustomer(String email, String passwordHash, String name) throws ClassNotFoundException, SQLException
-    {
-      return executeStoredProcedure("CreateCustomer", email, passwordHash, name);
-    }
-    
-    /**
-    * Wrapper for stored procedure <b>CreateEmployee</b>
-    * @param email email address of employee, must be unique
-    * @param passwordHash Hash of their password
-    * @param name Name of the employee, may be empty
-    * @param businessID identifier of the business they work for
-    * 
-    * @return {@code publicID} of the user generated with this method
-    * @author Luke Magnusson
-    * @since 2020-08-06
-    * @version 1.0
-    * @throws SQLException when the stored procedure doesn't exist or is errant
-    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
-    * @see security.PasswordTools#hashPassword(String)
-    */
-    public static ResultSet createEmployee(String email, String passwordHash, String name, String businessID) throws ClassNotFoundException, SQLException
-    {
-      return executeStoredProcedure("CreateEmployee", email, passwordHash, name, businessID);
-    }
-    
-    /**
-    * Wrapper for stored procedure <b>CreateBusiness</b>
-    * @param email email address of the manager, must be unique
-    * @param passwordHash SHA-512 Hash of provided password
-    * @param name Name of business owner/manager, e.g. Jane Smith, may be empty
-    * @param businessName Name provided for the business, e.g. ACME inc.
-    * @param businessStreetAddress Street address, e.g. 123 Main Rd
-    * @param businessPostcode Postcode for the proposed entry, e.g. 3000
-    * @return {@code publicID} of the user generated with this method
-    * @author Luke Magnusson
-    * @since 2020-08-06
-    * @version 1.0
-    * @throws SQLException when the stored procedure doesn't exist or is errant
-    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
-    * @see security.PasswordTools#hashPassword(String)
-    */
-    public static ResultSet createManager(String email, String passwordHash, String name, String businessStreetAddress, int businessPostcode) throws ClassNotFoundException, SQLException
-    {
-      return executeStoredProcedure("CreateBusiness", email, passwordHash, name, businessStreetAddress, String.valueOf(businessPostcode));
-    }
-    
-    /**
-    * @param email Email of the user who is having availabilities added
-    * @param interval The interval that is being added
-    * @return Row added to the database
-    * @author Luke Magnusson
-    * @since 2020-08-15
-    * @version 1.0
-    * @throws SQLException when the stored procedure doesn't exist or is errant
-    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
-    * 
-    */
-    public static ResultSet addAvailability(String email, Interval interval) throws ClassNotFoundException, SQLException
-    {
-      return executeStoredProcedure("AddAvailability", 
-      email, 
-      interval.toString());
-    }
-    
-    /**
-    * Wrapper for stored procedure <b>LoginUser</b>
-    * @param email
-    * @param passwordHash 
-    * @return {@code publicID} of user who matches the provided details
-    * @author Luke Magnusson
-    * @since 2020-08-06
-    * @version 1.0
-    * @throws SQLException when the stored procedure doesn't exist or is errant
-    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
-    * @see security.PasswordTools#hashPassword(String)
-    */
-    public static ResultSet loginUser(String email, String passwordHash) throws ClassNotFoundException, SQLException
-    {
-      return executeStoredProcedure("LoginUser",  passwordHash,email);
-    }
-    
-    /**
-    * Wrapper for stored procedure <b>SelectEmployee</b>
-    * @param employeeID
-    * @return
-    * @author Luke Magnusson
-    * @since 2020-08-06
-    * @version 1.0
-    * @throws SQLException when the stored procedure doesn't exist or is errant
-    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
-    */
-    public static ResultSet selectEmployee(String employeeEmail) throws ClassNotFoundException, SQLException
-    {
-      return executeStoredProcedure("SelectEmployee", String.valueOf(employeeEmail));
     }
     
     /**
@@ -243,6 +135,134 @@ public class DatabaseConnection {
       
       return rs;
     }
+    //#endregion
+    
+    //#region Wrapper Functions
+    
+    //#region Get Data
+    
+    /**
+    * Wrapper for stored procedure <b>LoginUser</b>
+    * @param email
+    * @param passwordHash 
+    * @return {@code publicID} of user who matches the provided details
+    * @author Luke Magnusson
+    * @since 2020-08-06
+    * @version 1.0
+    * @throws SQLException when the stored procedure doesn't exist or is errant
+    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
+    * @see security.PasswordTools#hashPassword(String)
+    */
+    public static ResultSet loginUser(String email, String passwordHash) throws ClassNotFoundException, SQLException
+    {
+      return executeStoredProcedure("LoginUser",  passwordHash,email);
+    }
+    
+    /**
+    * Wrapper for stored procedure <b>SelectEmployee</b>
+    * @param employeeID
+    * @return Record of employee
+    * @author Luke Magnusson
+    * @since 2020-08-06
+    * @version 1.0
+    * @throws SQLException when the stored procedure doesn't exist or is errant
+    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
+    */
+    public static ResultSet selectEmployee(String employeeEmail) throws ClassNotFoundException, SQLException
+    {
+      return executeStoredProcedure("SelectEmployee", employeeEmail);
+    }
+
+    public static ResultSet selectBusinesses() throws ClassNotFoundException, SQLException {
+      return executeStoredProcedure("SelectBusinesses");
+    }
+    
+    public static ResultSet selectEmployees() throws ClassNotFoundException, SQLException {
+      return executeStoredProcedure("SelectEmployees");
+    }
+    
+    public static ResultSet selectCustomers() throws ClassNotFoundException, SQLException {
+      return executeStoredProcedure("SelectCustomers");
+    }
+    //#endregion
+    //#region Insert Data
+    /**
+     * Wrapper for stored procedure <b>CreateCustomer</b>
+    * @param email Email address of the user, must be unique
+    * @param passwordHash SHA-512 Hash of their password
+    * @param name Name of the user e.g. Jane Doe, may be empty
+    * @return {@code publicID} of the user generated with this method
+    * @author Luke Magnusson
+    * @version 1.0
+    * @throws SQLException When the SQL code is errant, or the entry already exists with that private key
+    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
+    * @since 2020-08-06
+    * @see java.sql.Connection
+    * @see security.PasswordTools#hashPassword(String)
+    */
+    public static ResultSet createCustomer(String email, String passwordHash, String name) throws ClassNotFoundException, SQLException
+    {
+      return executeStoredProcedure("CreateCustomer", email, passwordHash, name);
+    }
+    
+    /**
+    * Wrapper for stored procedure <b>CreateEmployee</b>
+    * @param email email address of employee, must be unique
+    * @param passwordHash Hash of their password
+    * @param name Name of the employee, may be empty
+    * @param businessID identifier of the business they work for
+    * 
+    * @return {@code publicID} of the user generated with this method
+    * @author Luke Magnusson
+    * @since 2020-08-06
+    * @version 1.0
+    * @throws SQLException when the stored procedure doesn't exist or is errant
+    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
+    * @see security.PasswordTools#hashPassword(String)
+    */
+    public static ResultSet createEmployee(String email, String passwordHash, String name, String businessID) throws ClassNotFoundException, SQLException
+    {
+      return executeStoredProcedure("CreateEmployee", email, passwordHash, name, businessID);
+    }
+    
+    /**
+    * Wrapper for stored procedure <b>CreateBusiness</b>
+    * @param email email address of the manager, must be unique
+    * @param passwordHash SHA-512 Hash of provided password
+    * @param name Name of business owner/manager, e.g. Jane Smith, may be empty
+    * @param businessName Name provided for the business, e.g. ACME inc.
+    * @param businessStreetAddress Street address, e.g. 123 Main Rd
+    * @param businessPostcode Postcode for the proposed entry, e.g. 3000
+    * @return {@code publicID} of the user generated with this method
+    * @author Luke Magnusson
+    * @since 2020-08-06
+    * @version 1.0
+    * @throws SQLException when the stored procedure doesn't exist or is errant
+    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
+    * @see security.PasswordTools#hashPassword(String)
+    */
+    public static ResultSet createManager(String email, String passwordHash, String name, String businessStreetAddress, int businessPostcode) throws ClassNotFoundException, SQLException
+    {
+      return executeStoredProcedure("CreateBusiness", email, passwordHash, name, businessStreetAddress, String.valueOf(businessPostcode));
+    }
+    
+    /**
+    * @param email Email of the user who is having availabilities added
+    * @param interval The interval that is being added
+    * @return Row added to the database
+    * @author Luke Magnusson
+    * @since 2020-08-15
+    * @version 1.0
+    * @throws SQLException when the stored procedure doesn't exist or is errant
+    * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
+    * 
+    */
+    public static ResultSet addAvailability(String email, Interval interval) throws ClassNotFoundException, SQLException
+    {
+      return executeStoredProcedure("AddAvailability", 
+      email, 
+      interval.toString());
+    }
     
     public static ResultSet createCustomer(Customer c) throws ClassNotFoundException, SQLException
     {
@@ -273,20 +293,9 @@ public class DatabaseConnection {
       return allAddedCorrectly;
     }
     
+    //#endregion
+    //#region Update Data
     
-    public static ResultSet selectBusinesses() throws ClassNotFoundException, SQLException {
-      Connection rs = getConnection();
-      
-      
-      
-      return null;
-    }
-    
-    public static ResultSet selectEmployees() {
-      return null;
-    }
-    
-    public static ResultSet selectCustomers() {
-      return null;
-    }
+    //#endregion
+    //#endregion
   }
