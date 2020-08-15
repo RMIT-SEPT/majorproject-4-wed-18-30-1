@@ -63,6 +63,16 @@ public class Business extends User{
     this.openingHours[day] = openingHours;
   }
   //#endregion
+
+public String getAddress() {
+  String[] segments = location.split("\t");
+  return segments[0];
+}
+
+public int getPostcode() {
+  String[] segments = location.split("\t");
+  return Integer.parseInt(segments[segments.length-1]);
+}
   
   //#endregion
 }

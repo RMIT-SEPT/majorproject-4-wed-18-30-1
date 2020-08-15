@@ -102,9 +102,9 @@ public class DatabaseConnection {
     * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
     * @see security.PasswordTools#hashPassword(String)
     */
-    public static ResultSet createManager(String email, String passwordHash, String name, String businessName, String businessStreetAddress, int businessPostcode) throws ClassNotFoundException, SQLException
+    public static ResultSet createManager(String email, String passwordHash, String name, String businessStreetAddress, int businessPostcode) throws ClassNotFoundException, SQLException
     {
-      return executeStoredProcedure("CreateBusiness", email, passwordHash, name, businessName, businessStreetAddress, String.valueOf( businessPostcode));
+      return executeStoredProcedure("CreateBusiness", email, passwordHash, name, businessStreetAddress, String.valueOf(businessPostcode));
     }
     
     /**
@@ -134,9 +134,9 @@ public class DatabaseConnection {
     * @throws SQLException when the stored procedure doesn't exist or is errant
     * @throws ClassNotFoundException when calling {@code Class.forName("com.mysql.jdbc.Driver");} raises an exception
     */
-    public static ResultSet selectEmployee(int employeeID) throws ClassNotFoundException, SQLException
+    public static ResultSet selectEmployee(String employeeEmail) throws ClassNotFoundException, SQLException
     {
-      return executeStoredProcedure("SelectEmployee", String.valueOf(employeeID));
+      return executeStoredProcedure("SelectEmployee", String.valueOf(employeeEmail));
     }
     
     /**
@@ -241,11 +241,20 @@ public class DatabaseConnection {
       String openingHours = '\'' 
                           + au.toString(b.getOpeningHours(), "\', \'") 
                           + '\'';
-      return createEmployee(b.getEmail(), b.getPasswordHash(), b.getName(), openingHours);
+      createManager(b.getEmail(), b.getPasswordHash(), b.getName(), b.getAddress(), b.getPostcode());
+
+      for (Interval day : b.getOpeningHours()) {
+        addHours(b.getEmail(), day);
+      }
     }
 
-	public static ResultSet selectBusinesses() {
-		return null;
+
+	public static ResultSet selectBusinesses() throws ClassNotFoundException, SQLException {
+    Connection rs = getConnection();
+    
+
+
+    return null;
 	}
 
 	public static ResultSet selectEmployees() {

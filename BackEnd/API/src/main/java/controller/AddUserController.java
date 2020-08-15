@@ -25,9 +25,10 @@ public class AddUserController {
   * @since 2020-08-08
   * @version 1.0
   */
-  @RequestMapping("/")
+  @RequestMapping("/AddUser")
   public String index() {
-    return "Spring Boot says \"Hello world!\"\n";
+    //TODO auto-generated stub
+    return "Functionality has not been provided for this use case yet.\n";
   }
   //#endregion
   //#region Private methods
