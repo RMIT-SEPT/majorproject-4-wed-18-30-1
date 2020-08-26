@@ -8,3 +8,5 @@ DROP TABLE employees;
 DROP TABLE postcodes;
 
 DROP TABLE bookings;
+
+DROP TABLE accessibleTimes;

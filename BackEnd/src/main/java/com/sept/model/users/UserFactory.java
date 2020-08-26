@@ -155,9 +155,11 @@ public class UserFactory {
   * @since 2020-08-06
   * @version 1.0
   * @return Array of the employees that were stored on the database
+ * @throws SQLException
+ * @throws ClassNotFoundException
   * @see database.DatabaseConnection#selectEmployees()
   */
-  public Employee[] loadEmployees()
+  public Employee[] loadEmployees() throws ClassNotFoundException, SQLException
   {
     ResultSet rs = DatabaseConnection.selectEmployees();
     List<Employee> result = new ArrayList<>();
@@ -186,9 +188,11 @@ public class UserFactory {
   * @since 2020-08-06
   * @version 1.0
   * @return Array of the customers that were stored on the database
+ * @throws SQLException
+ * @throws ClassNotFoundException
   * @see database.DatabaseConnection#selectCustomers()
   */
-  public Customer[] loadCustomers()
+  public Customer[] loadCustomers() throws ClassNotFoundException, SQLException
   {
     ResultSet rs = DatabaseConnection.selectCustomers();
     
@@ -203,7 +207,7 @@ public class UserFactory {
       if (result.indexOf(c) == -1)
       result.add(c);
       else
-      throw new RuntimeException("Employee " + c.toString() + "is stored twice in the database");
+      throw new RuntimeException("Customer " + c.toString() + "is stored twice in the database");
     }
     
     return result.toArray(new Customer[result.size()]);
